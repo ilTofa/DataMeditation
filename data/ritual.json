@@ -1,98 +1,87 @@
 {
 	"refreshtimems": 5000,
-	"assemblyjitsymeet": "https://meet.jit.si/DataRitualAssemblyJuly2020",
-	"finalday": "2020-07-24",
+	"groupid": "FB",
+	"assemblyjitsymeet": "https://meet.jit.si/All4ClimateAtMAXXI",
+	"finalday": "2024-06-28",
 	"referencetimezone": "UTC",
+	"howmanydaysdataonlastday": 4,
+	"howmanydaysdatatoonlastday": 0,
 	"ritual": {
-		"starttime": "16:20:00",
-		"endtime":	"17:20:00",
-		"minutestoconsideronline": 1,
-		"atleastthispartofgrouptostartritual": 0.7,
-		"waitingforothers": "Let's wait until more people are here",
+		"starttime": "15:45:00",
+		"endtime":	"16:10:00", 
+		"minutestoconsideronline": 10,
+		"atleastthispartofgrouptostartritual": 0.3,
+		"waitingforothers": "... aspettiamo che arrivino anche gli altri",
 		"minutebass": "sounds/smallbass.mp3",
 		"hourbass": "sounds/bigbass.mp3",
-		"atmosphere": "sounds/atmo.mp3"
+		"atmosphere": "sounds/atmo.mp3",
+		"comfortsound": "sounds/comfortII.mp3",
+		"discomfortsound": "sounds/discomfortII.mp3"
 	},
 	"couplesmeet": {
-		"starttime": "16:35:00",
-		"endtime": "17:20:00"
+		"starttime": "15:57:00",
+		"endtime":	"16:30:00"
 	},
 	"assembly": {
-		"eachdaystarttime": "16:20:00",
-		"eachdayendtime": "18:10:00",
-		"finaldaystarttime": "17:05:00",
-		"finaldayendtime": "19:10:00"
+		"eachdaystarttime": "00:00:00",
+		"eachdayendtime": "00:00:00",
+		"finaldaystarttime": "00:00:00",
+		"finaldayendtime": "00:00:00"
 	},
 	"datatocollect": [
 
 		{
-			"label": "context",
-			"fieldid": "context",
-			"type": "switch",
+			"label": "Cosa stai facendo?",
+			"fieldid": "cosa",
+			"type": "text"
+		},
+		{
+			"label": "Dove sei?",
+			"fieldid": "dove",
+			"type": "select",
 			"positions": [ 
-				["no answer","sounds/silence.mp3"],
-				["I'm awake","sounds/awake.mp3"] , 
-				["I'm going to sleep","sounds/sleep.mp3"],
-				["I'm home","sounds/home.mp3"],
-				["I'm in a place of culture","sounds/culture.mp3"],
-				["I'm in a place for working","sounds/working.mp3"],
-				["I'm in a place for consumption","sounds/consumption.mp3"],
-				["I'm in a random place","sounds/random.mp3"],
-				["I'm moving on foot","sounds/walking.mp3"],
-				["I'm on a bycicle","sounds/bicycle.mp3"],
-				["I'm on public transport","sounds/publictransport.mp3"],
-				["I'm on another private vehicle","sounds/car.mp3"],
-				["I'm using a car/bike/other sharing","sounds/sharing.mp3"]
-			]
+				["Casa","sounds/home.mp3"],
+	        	["Ufficio","sounds/office.mp3"],
+	        	["Scuola/Università","sounds/scuola.mp3"],
+	        	["Ospedale","sounds/hospital.mp3"],
+	        	["Negozi/Shopping Center","sounds/shopping.mp3"],
+	        	["Albergo","sounds/hotel.mp3"],
+	        	["Servizi (Poste, Banche...)","sounds/postoffice.mp3"],
+	        	["Musei/Teatri/Cinema/Eventi","sounds/movies.mp3"],
+	        	["Vita Notturna","sounds/club.mp3"],
+	        	["Mezzo Pubblico","sounds/publictransport.mp3"],
+	        	["Mezzo Privato","sounds/inthecar.mp3"],
+	        	["Stazioni/Aeroporto","sounds/station.mp3"],
+	        	["In Strada/Piazza","sounds/steps.mp3"],
+	        	["Parco/Natura Urbana","sounds/park.mp3"],
+	        	["Ruralità (Campagna, Montagna...)","sounds/rrurrral.mp3"],
+	        	["Acqua (Mare, Lago...)","sounds/water.mp3"]
+        	]
 		},
 		{
-			"label": "interacting",
-			"fieldid": "interacting",
-			"type": "switch",
-			"positions": [
-				["no answer","sounds/silence.mp3"],
-				["not interacting with anyone","sounds/silence.mp3"],
-				["I greeted a person","sounds/salute.mp3"],
-				["I touched person","sounds/touched.mp3"],
-				["we hug","sounds/hug.mp3"],
-				["we kissed","sounds/kiss.mp3"],
-				["we had sex","sounds/sex.mp3"]
-			]
+			"label": "Quanto sei sensibile all'ambiente in questo istante?",
+			"fieldid": "quanto",
+			"type": "range",
+			"min": 0,
+			"max": 100,
+			"default" : 0,
+			"step": 1
 		},
 		{
-			"label": "emotion",
-			"fieldid": "emotion",
-			"type": "switch",
-			"positions": [
-				["no answer","sounds/silence.mp3"],
-				["anger","sounds/anger.mp3"],
-				["fear","sounds/fear.mp3"],
-				["sadness","sounds/sadness.mp3"],
-				["joy","sounds/joy.mp3"],
-				["surprise","sounds/surprise.mp3"],
-				["expectance","sounds/expectance.mp3"],
-				["disgust","sounds/disgust.mp3"],
-				["acceptance","sounds/acceptance.mp3"]
-			]
+			"label": "👈 Discomfort/Comfort 👉",
+			"fieldid": "discomfortcomfort",
+			"type": "range",
+			"min": -100,
+			"max": 100,
+			"default" : 0,
+			"step": 1
 		},
 		{
-			"label": "with?",
-			"fieldid": "with",
-			"type": "switch",
-			"positions": [
-				["no answer","sounds/silence.mp3"],
-				["alone","sounds/silence.mp3"],
-				["with 1 person","sounds/1person.mp3"],
-				["with a few people (around max 6)","sounds/fewpeople.mp3"],
-				["with around 7-15 people","sounds/fewpeople.mp3"],
-				["in a crowd","sounds/crowd.mp3"]
-			]
-		},
-		{
-			"label": "note",
-			"fieldid": "note",
+			"label": "Messaggio nella bottiglia",
+			"fieldid": "messaggio",
 			"type": "text"
 		}
 
 	]
 }
+

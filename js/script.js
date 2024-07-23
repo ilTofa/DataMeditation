@@ -1,4 +1,7 @@
-var APIBaseUrl = "https://he-r.it/DataMeditation/API/index.php";
+var APIBaseUrl = "https://he-r.it/dm/fb/API/index.php";
+//var APIBaseUrl = "http://localhost:8888/dm/fb/API/index.php";
+
+// inc = incremento tempo
 
 var login = "";
 var password = "";
@@ -8,6 +11,7 @@ var ritualdata = {};
 var isritualtime = false;
 var isassemblytime = false;
 var iscouplesmeettime = false;
+var islastday = false;
 
 var user = null;
 var group = null;
@@ -67,6 +71,27 @@ function refreshInterface(){
 	} else {
 		isassemblytime = false;
 	}
+
+	var cdonly = new Date();
+	var cyyy = cdonly.getYear() + 1900;
+	var cmmm = cdonly.getMonth() + 1;
+	var cddd = cdonly.getDate();
+
+
+	var yyy = parseInt( ritualdata.finalday.split("-")[0] );
+	var mmm = parseInt( ritualdata.finalday.split("-")[1] );
+	var ddd = parseInt( ritualdata.finalday.split("-")[2] );
+
+	//console.log("[a]:" + cyyy + "/" + cmmm + "/" + cddd);
+	//console.log("[b]:" + yyy + "/" + mmm + "/" + ddd);
+
+	if(cyyy==yyy && cmmm==mmm && cddd==ddd){
+		islastday = true;
+	} else {
+		islastday = false;
+	}
+	//console.log(islastday);
+
 
 
 	if( 
@@ -194,11 +219,63 @@ function toDataCollection(){
 		$("#datacollectionpanel").css("display","block");
 		$("#datacollectionpanel").fadeIn(function(){
 			//
+			var dd = new Date();
+			var dd2 = new Date();
+			dd2.setDate(dd2.getDate() - 1);
+
+			$("#timeselector").flatpickr(
+					{
+					    enableTime: true,
+					    dateFormat: "Y-m-d H:i",
+					    //dateFormat: "H:i",
+					    defaultDate: dd,
+					    maxDate: dd,
+					    minDate: dd2
+					}
+				);
 		});	
 		
 	});	
 		
 }
+
+
+function toInstructions(){
+	$(".panel , .panelcover").fadeOut().promise().done(function() {
+		$(".panel , .panelcover").css("display","none");
+		$("#instructionspanel").css("display","block");
+		$("#instructionspanel").fadeIn(function(){
+			
+		});	
+		
+	});	
+		
+}
+
+
+function toDataOk(){
+	$(".panel , .panelcover").fadeOut().promise().done(function() {
+		$(".panel , .panelcover").css("display","none");
+		$("#dataokpanel").css("display","block");
+		$("#dataokpanel").fadeIn(function(){
+			//
+		});	
+		
+	});			
+}
+
+
+function toDataNOk(){
+	$(".panel , .panelcover").fadeOut().promise().done(function() {
+		$(".panel , .panelcover").css("display","none");
+		$("#datanokpanel").css("display","block");
+		$("#datanokpanel").fadeIn(function(){
+			//
+		});	
+		
+	});			
+}
+
 
 function fromLogintoMenu(){
 	$(".panel , .panelcover").fadeOut().promise().done(function() {
@@ -412,9 +489,10 @@ function doCouples(){
 									.attr("target","_blank")
 									.append("div")
 									.attr("class","menuitem")
-									.text("go to meet your other");
+									.text("conosci il TUO ALTRO");
 					}
 
+					/*
 					d3.select("#couplespanel")
 									.append("a")
 									.attr("href", ritualdata.assemblyjitsymeet )
@@ -422,7 +500,8 @@ function doCouples(){
 									.append("div")
 									.attr("class","menuitem")
 									.attr("id","gotoassembly2")
-									.text("go to assembly");
+									.text("entra nell'assemblea");
+					*/
 
 				}
 				
@@ -449,12 +528,26 @@ function doSendData(){
 			} else if(ritualdata.datatocollect[i].type=="text"){
 				var value = $("#datacollectionpanel #" + ritualdata.datatocollect[i].fieldid ).val();
 				result[name] = escape(value);	
+			} else if(ritualdata.datatocollect[i].type=="range"){
+				var value = $("#datacollectionpanel #" + ritualdata.datatocollect[i].fieldid ).val();
+				result[name] = value;	
 			}
 		}
 
 		// console.log(result);
 
+		/*
+
+		ripristinare se si vuole dare la possibilitÃ  di scegliere l'orario
+
+		var cd = new Date( $("#timeselector").val() );
+
+		*/
 		var cd = new Date();
+
+
+
+		//alert( cd );
 		var year = cd.getUTCFullYear();
 		var month = cd.getUTCMonth() + 1;
 		var day = cd.getUTCDate();
@@ -468,7 +561,7 @@ function doSendData(){
 				"cmd": "updata",
 				"userid": user.iduser,
 				"groupid": group.groupid,
-				"jsondata": JSON.stringify(result),
+				"jsondata": crypt(JSON.stringify(result)),
 				"year": year,
 				"month": month,
 				"day": day,
@@ -481,15 +574,18 @@ function doSendData(){
 				// console.log(data);
 
 				if(data.error){
-					alert(data.error);
+					//alert(data.error);
+					toDataNOk();
 				} else {
 					// if success: show menu
-					alert("Data shared!");
+					//alert("Data shared!");
 
 					$(".datacollectionform input[type=radio]").prop("checked",false);
 					$(".datacollectionform input[type=checkbox]").prop("checked",false);
 					$(".datacollectionform select option:selected").prop("selected",false);
 					$(".datacollectionform input[type=text]").val("");
+					toDataOk();
+
 				}
 				
 			}
@@ -611,6 +707,10 @@ function checkifitsdatetime(currentDate,startTime,endTime,ofDay){
 
 
 function setupmenuitems(){
+
+	$("#groupid").val(ritualdata.groupid);
+	groupid = ritualdata.groupid;
+
 	$("#gotologin").click(function(){
 		user = null;
 		group = null;
@@ -625,6 +725,20 @@ function setupmenuitems(){
 		toDataCollection();
 	});
 
+	$("#gotoinstructions").click(function(){
+		toInstructions();
+	});
+
+	$("#backfromdataok").click(function(){
+		toMenu();
+	});
+
+	$("#backfromdatanok").click(function(){
+		toDataCollection();
+	});
+
+
+
 			d3.select("#watingmessage").text(ritualdata.ritual.waitingforothers);
 
 
@@ -637,6 +751,16 @@ function setupmenuitems(){
 					.attr("class","menuitem")
 					.attr("id","gotoassembly3")
 					.text("go to assembly");
+					/*
+					.on("mouseover",function(){
+						//console.log(this);
+						d3.select(this)
+							.style("position","absolute")
+							.style("top",function(d){
+								return Math.random()*jQuery("body").height() + "px";
+							})
+					});
+					*/
 
 	$("#gotoassembly").click(function(){
 		toAssembly();
@@ -660,6 +784,36 @@ function setupmenuitems(){
 
 }
 
+function getAllData(groupid){
+	$.getJSON(
+		APIBaseUrl,
+		{
+			"cmd": "getalldata",
+			"groupid": groupid,
+			"v": Math.random()*Math.random()
+		},
+		function(data){
+			console.log(data);
+			var string = '';
+			string+='"timestamp","userid","cosa","discomfortcomfort","dove","messaggio","quanto"\n'
+			data.theData.myData.forEach(function(d){
+				d.hour = +d.hour;
+				d.minute = +d.minute;
+				d.second = +d.second;
+				d.jsonstring = JSON.parse(decrypt( d.jsonstring));
+				string+='"'+d.timestamp+'","'+d.userid+'","'+unescape(d.jsonstring.cosa).replace(/"/g, "'")+'","'+d.jsonstring.discomfortcomfort+'","'+d.jsonstring.dove+'","'+unescape(d.jsonstring.messaggio).replace(/"/g, "'")+'","'+d.jsonstring.quanto+'"\n'
+			});
+	
+			if(data.error){
+				alert(data.error);
+			} else {
+				// if success: show menu
+				console.log(string);
+			}
+			
+		}
+	);
+}
 
 function startRitual(){
 	//console.log("[in startRitual]");
@@ -686,6 +840,8 @@ function startRitual(){
 				"month": month,
 				"day": day,
 				"starttime": ritualdata.ritual.starttime,
+				"islastday": islastday,
+				"howmanydaysdata": ritualdata.howmanydaysdataonlastday,
 				"v": Math.random()*Math.random()
 			},
 			function(data){
@@ -697,12 +853,14 @@ function startRitual(){
 					d.hour = +d.hour;
 					d.minute = +d.minute;
 					d.second = +d.second;
+					d.jsonstring = decrypt( d.jsonstring);
 				});
 
 				dataforritual.theData.theOthersData.forEach(function(d){
 					d.hour = +d.hour;
 					d.minute = +d.minute;
 					d.second = +d.second;
+					d.jsonstring = decrypt(d.jsonstring);
 				});
 
 				if(data.error){
@@ -726,6 +884,37 @@ function startRitual(){
 function setupdatacollectionform(){
 	var formcontainer = d3.select("#datacollectionpanel").append("div").attr("class","datacollectionform");
 	if(typeof ritualdata.datatocollect != 'undefined'){
+
+		var fieldcontainerdate = formcontainer.append("div").attr("class","fieldcontainer");
+		
+		/*
+
+		ripristinare se si vuole dare la possibilitÃ  di scegliere l'orario
+
+		fieldcontainerdate.append("div").attr("class","fieldlables").text("Quando?");
+		var fhdate = fieldcontainerdate
+						.append("div")
+						.attr("class","fieldholder")
+						.append("input")
+						.attr("id","timeselector");
+
+		var dd = new Date();
+		var dd2 = new Date();
+		dd2.setDate(dd2.getDate() - 1);
+
+		$("#timeselector").flatpickr(
+				{
+				    enableTime: true,
+				    dateFormat: "Y-m-d H:i",
+				    //dateFormat: "H:i",
+				    defaultDate: dd,
+				    maxDate: dd,
+				    minDate: dd2
+				}
+			);
+
+		*/
+
 		for(var i = 0; i<ritualdata.datatocollect.length; i++){
 			// add field
 			var fieldcontainer = formcontainer.append("div").attr("class","fieldcontainer");
@@ -769,13 +958,30 @@ function setupdatacollectionform(){
 					fh	
 						.append("option")
 						.attr("value",ritualdata.datatocollect[i].positions[j][0])
-						.text(ritualdata.datatocollect[i].positions[j][0]);
+						.text(ritualdata.datatocollect[i].positions[j][0])
+						.property("selected", function(d,i){ return i == 0; });
 				}
 				
 
 			} else if( ritualdata.datatocollect[i].type=="range" ){
 
-				// todo
+				var val = (ritualdata.datatocollect[i].min+ritualdata.datatocollect[i].max)/2;
+				if(  isNaN( parseFloat(ritualdata.datatocollect[i].default) )==false  ){
+					val = parseFloat( ritualdata.datatocollect[i].default );
+				}
+
+				var fh = fieldcontainer
+						.append("div")
+						.attr("class","fieldholder")
+						.append("input")
+						.attr("type","range")
+						.attr("name",ritualdata.datatocollect[i].fieldid)
+						.attr("id",ritualdata.datatocollect[i].fieldid)
+						.attr("min",ritualdata.datatocollect[i].min)
+						.attr("max",ritualdata.datatocollect[i].max)
+						.attr("step",ritualdata.datatocollect[i].step)
+						.attr("value", val );
+
 				
 			} else if( ritualdata.datatocollect[i].type=="text" ){
 
@@ -794,7 +1000,11 @@ function setupdatacollectionform(){
 		formcontainer.append("div")
 					.attr("class","menuitem")
 					.attr("id","senddata")
-					.text("send data");
+					.text("memorizza i dati");
+
+		$('input[type="range"]').rangeslider({
+			polyfill: false
+		});
 
 		$("#senddata").click(function(){
 			doSendData();
@@ -836,7 +1046,7 @@ function viz(){
 	  var m = 0;
 	  var s = 0;
 
-	  var inc = 15;
+	  var inc = 10;
 
 	  var ph = 0;
 	  var pm = 0;
@@ -857,13 +1067,33 @@ function viz(){
 	  var st = null;
 	  var et = null;
 
-	  sketch.preload = () => {
+	  var loopcomfme = null;
+	  var loopdiscomfme = null;
+
+	  var loopcomfother = null;
+	  var loopdiscomfother = null;
+
+	  var soundcanstart = false;
+	  var loopsstarted = false;
+	  var ispreloaddone = 0;
+
+	  var timeelapsed = 0;
+
+	  sketch.preloads = () => {
 		  sketch.soundFormats('wav', 'mp3', 'ogg');
 
+		  // mimics the autoplay policy
+		  sketch.getAudioContext().suspend();
 		  
 		  minutebass = sketch.loadSound( ritualdata.ritual.minutebass );
 		  hourbass = sketch.loadSound( ritualdata.ritual.hourbass );
-		  atmo = sketch.loadSound( ritualdata.ritual.atmosphere );
+		  //atmo = sketch.loadSound( ritualdata.ritual.atmosphere );
+
+		  loopcomfme = sketch.loadSound( ritualdata.ritual.comfortsound );
+		  loopdiscomfme = sketch.loadSound( ritualdata.ritual.discomfortsound );
+
+		  loopcomfother = sketch.loadSound( ritualdata.ritual.comfortsound );
+		  loopdiscomfother = sketch.loadSound( ritualdata.ritual.discomfortsound );
 
 		  
 		  for(var i = 0; i<ritualdata.datatocollect.length; i++){
@@ -878,310 +1108,440 @@ function viz(){
 		  
 
 		}
+
+
+		sketch.mousePressed = () => {
+			soundcanstart = true;
+		  sketch.userStartAudio();
+		  sketch.getAudioContext().resume();
+		}
+
+
+		sketch.touchStarted = () => {
+			soundcanstart = true;
+		  sketch.userStartAudio();
+		  sketch.getAudioContext().resume()
+		}
 	  
 	  sketch.setup = () => {
+
+	  	//console.log("[viz.setup]");
 
 	    var ca = sketch.createCanvas(width, height);
 	    ca.parent("vizpanel");
 	    sketch.frameRate(10);
-	    atmo.loop();
+	    //atmo.loop();
 	    sketch.fill(0,0,0);
 	    sketch.noStroke();
 	    sketch.rect(0,0,width,height);
 
+	    timeelapsed = 0;
+	    
+
 	    startdatetime = luxon.DateTime.fromISO(ritualdata.ritual.starttime).minus({day: 1});
 	    enddatetime = luxon.DateTime.fromISO(ritualdata.ritual.starttime);
+
+	    if(islastday){
+	    	startdatetime = luxon.DateTime.fromISO(ritualdata.ritual.starttime).minus({day: parseInt( ritualdata.howmanydaysdataonlastday)  });
+	    	enddatetime = luxon.DateTime.fromISO(ritualdata.ritual.starttime).minus({day: parseInt( ritualdata.howmanydaysdatatoonlastday)  });
+	    	//INCREMENTO DURATA MEDITATION
+	    	inc = 100 * (ritualdata.howmanydaysdataonlastday - ritualdata.howmanydaysdatatoonlastday );
+	    }
+	    
 	    // startdatetime = luxon.DateTime.fromISO("2020-07-23T00:00:00");
 	    // enddatetime = luxon.DateTime.fromISO("2020-07-24T0:00:00");
 	    
 	    st = startdatetime;
-		
-	  };
-
-	  sketch.draw = () => {
-	    //sketch.background(255*sketch.random(),255*sketch.random(),255*sketch.random());
-	    sketch.fill(0,0,0,10);
-	    sketch.noStroke();
-	    sketch.rect(0,0,width,height);
-
-
-	    et = st.plus({seconds: inc });
-
-
-	    if(et.diff(enddatetime).valueOf()>0){
-	    			sketch.noLoop();
-	    			atmo.stop();
-					endRitual();
-	    }
 
 	    
 
-	    // var strtime = ph + ":" + pm + ":" + ps + " --> " + h + ":" + m + ":" + s;
-	    var strtime = st.toFormat("yyyy-MM-dd HH:mm:ss");//(h<10?"0":"") + h + ":" + (m<10?"0":"") + m + ":" + (s<10?"0":"") + s;
-
-	    //console.log( ph + ":" + pm + ":" + ps + " -->" + h + ":" + m + ":" + s );
-
-
-	   // se h-m-s della lista dei due set di dati è compresa tra ph-pm-ps e h-m-s 
-	   // suono il suono relativo
-	   // e disegno / coloro
-
-	   
-	   // var phdate = Date.parse("01/01/2011 " + ph  + ":" + pm + ":" + ps);
-	   // var hdate = Date.parse("01/01/2011 " + h  + ":" + m + ":" + s);
-
-
-
-
-	   // my data
-
-	   var towrite = new Array();
-
-	   
-	   for(var i=0; i<dataforritual.theData.myData.length; i++){
-	   	//console.log(dataforritual.theData.myData[i]);
-	
-		// 2020-07-20 15:56:20
-		// console.log(dataforritual.theData.myData[i].timestamp);
-		var theDate = luxon.DateTime.fromFormat(dataforritual.theData.myData[i].timestamp ,  "yyyy-MM-dd HH:mm:ss");//Date.parse("01/01/2011 " + dataforritual.theData.myData[i].hour  + ":" + dataforritual.theData.myData[i].minute + ":" + dataforritual.theData.myData[i].second);	   	
-		// console.log(theDate.toString());
-
-	   	//if(phdate<=thedate && hdate>=thedate){
-
-	   	/*
-	   	console.log("st:");
-	   	console.log( st.toString() );
-
-	   	console.log("theDate:");
-	   	console.log( theDate.toString() );
-
-	   	console.log("et:");
-	   	console.log( et.toString() );
-		*/
-
-	   	if( st.diff(theDate).valueOf()<0 && et.diff(theDate).valueOf()>0  ){
-
-
-	   				//console.log("FOUND!");
-	   				// play draw
-	   				var jdata = JSON.parse(  dataforritual.theData.myData[i].jsonstring );
-
-	   				//console.log("jdata:");
-	   				//console.log(jdata);
-
-
-
-	   				for(var j = 0; j<ritualdata.datatocollect.length; j++){
-	   					var field = ritualdata.datatocollect[j].fieldid;
-	   					//console.log("-> field:");
-	   					//console.log(field);
-	   					if(typeof jdata[field] != 'undefined'){
-	   						var value = jdata[field];
-		   					//console.log(field + "-->" + value);
-
-		   					if(ritualdata.datatocollect[j].type=="text"){
-		   						value = unescape(value);
-		   					}
-		   					
-		   					if(value!="no answer"){
-		   						towrite.push(  field + "-->" + value  );
-
-		   						var key = value;
-				  				key = key.replace(/[\W_]+/g,"_");
-
-				  				//console.log("-> key:");
-	   							//console.log(key);
-
-	   							//console.log(sounds[key]);
-
-
-			   					if(sounds[key]){
-			   						sounds[key].pan(-1);
-			   						sounds[key].play();
-			   					}	
-		   					}	
-	   					}
-	   					
-	   				}
-
-
-	   	}
-	   }
-
-	   if(towrite.length>0){
-
-	   		towriteme = towrite;
-
-	   		sketch.fill(255,255,255);
-	   		sketch.noStroke();
-	   		sketch.rect(0,0,width/2,height);
-
-	   }
-
-	   // end  my data
-
-
-
-
-
-	   // the other's data
-
-	   towrite = new Array();
-
-	   for(var i=0; i<dataforritual.theData.theOthersData.length; i++){
-	   	//console.log(dataforritual.theData.myData[i]);
-	
-		//var thedate = Date.parse("01/01/2011 " + dataforritual.theData.theOthersData[i].hour  + ":" + dataforritual.theData.theOthersData[i].minute + ":" + dataforritual.theData.theOthersData[i].second);	   	
-		var theDate = luxon.DateTime.fromFormat(dataforritual.theData.theOthersData[i].timestamp , "yyyy-MM-dd HH:mm:ss");
-
-	   	if( st.diff(theDate).valueOf()<0 && et.diff(theDate).valueOf()>0  ){
-
-
-	   				//console.log("FOUND!");
-	   				// play draw
-	   				var jdata = JSON.parse(  dataforritual.theData.theOthersData[i].jsonstring );
-
-	   				//console.log("jdata:");
-	   				//console.log(jdata);
-
-
-
-	   				for(var j = 0; j<ritualdata.datatocollect.length; j++){
-	   					var field = ritualdata.datatocollect[j].fieldid;
-	   					//console.log("-> field:");
-	   					//console.log(field);
-	   					if(typeof jdata[field] != 'undefined'){
-	   						var value = jdata[field];
-		   					//console.log(field + "-->" + value);
-
-		   					if(ritualdata.datatocollect[j].type=="text"){
-		   						value = unescape(value);
-		   					}
-		   					
-		   					if(value!="no answer"){
-		   						towrite.push(  field + "-->" + value  );
-
-		   						var key = value;
-				  				key = key.replace(/[\W_]+/g,"_");
-
-				  				//console.log("-> key:");
-	   							//console.log(key);
-
-	   							//console.log(sounds[key]);
-
-
-			   					if(sounds[key]){
-			   						sounds[key].pan(1);
-			   						sounds[key].play();
-			   					}	
-		   					}	
-	   					}
-	   					
-	   				}
-
-
-	   	}
-	   }
-
-	   if(towrite.length>0){
-	   		sketch.fill(255,255,255);
-	   		sketch.noStroke();
-	   		sketch.rect(width/2,0,width/2,height);
-
-	   		towriteother = towrite;
-
-	   }
-
-	   // end  the other's data
-
-
-
-if(towriteme!=null){
-
-			var fheight = 18;
-	   		var margin = 5;
-	   		var starty = height/2 - towriteme.length*(fheight+margin)/2;
-	   		sketch.fill(255,0,0);
-		   	sketch.textSize(fheight);
-			sketch.textAlign(sketch.LEFT,sketch.CENTER);
-			sketch.textFont('Helvetica');
-			var tws = "";
-			for(var k = 0; k<towriteme.length; k++){
-				tws = tws + towriteme[k];
-				if(k<(towriteme.length-1)){
-					tws = tws + "\n";
-				}
-				//sketch.text(towriteme[k], margin, starty + k*(fheight+margin)  );	
-			}
-			sketch.text(tws, margin, 30, width/2 - 2*margin , height - 65  );	
-
-}
-
-
-if(towriteother!=null){
-
-			var fheight = 18;
-	   		var margin = 5;
-	   		var starty = height/2 - towriteother.length*(fheight+margin)/2;
-	   		sketch.fill(255,0,0);
-		   	sketch.textSize(fheight);
-			sketch.textAlign(sketch.RIGHT,sketch.CENTER);
-			sketch.textFont('Helvetica');
-			var tws = "";
-			for(var k = 0; k<towriteother.length; k++){
-				tws = tws + towriteother[k];
-				if(k<(towriteother.length-1)){
-					tws = tws + "\n";
-				}
-				//sketch.text(towriteother[k], width-margin, starty + k*(fheight+margin)  );	
-			}
-			sketch.text(tws, width/2 + margin, 30 , width/2 - 2*margin , height - 65  );	
-
-}
-
-
-
-		sketch.fill(255,0,0);
-		sketch.textSize(56);
-		sketch.textAlign(sketch.CENTER,sketch.CENTER);
-		sketch.textFont('Helvetica');
-		sketch.text("YOU", width/4, height-30 );
-		sketch.text("YOUR OTHER", 3*width/4, height-30 );	
-
-	   // ogni minuto : basso
-	   if(st.minute%10==0){
-	   	minutebass.play();
-	   	sketch.fill(255,0,0);
-	   	sketch.noStroke();
-	   	var wwww = 30;
-
-	   	sketch.rect(width/2-wwww/2,0,wwww,height);
-	   }
-
-
-
-
-		// draw time
-		sketch.fill(0,0,0);
-		sketch.noStroke();
-		sketch.rect(width/2-150,0,300,30);
-		sketch.fill(255,255,255);
-		sketch.textSize(20);
-		sketch.textAlign(sketch.CENTER,sketch.CENTER);
-		sketch.textFont('Helvetica');
-		sketch.text(strtime + " " + ritualdata.referencetimezone, width/2, 15);
 		
-	    // at the end
-	    ph = h;
-	    pm = m;
-	    ps = s;
-
-	    st = et;
-
 	  };
-	});
+
+	sketch.draw = () => {
+
+
+
+		if(ispreloaddone==0){
+			sketch.preloads();
+			ispreloaddone = 1;
+		}
+
+		var aresoundsloaded = true;
+
+		//console.log("loopcomfme=" + loopcomfme.isLoaded());
+		if(!loopcomfme.isLoaded()){
+			aresoundsloaded = false;			
+		}
+
+		//console.log("loopdiscomfme=" + loopdiscomfme.isLoaded());
+		if(!loopdiscomfme.isLoaded()){
+			aresoundsloaded = false;			
+		}
+
+		//console.log("loopcomfother=" + loopcomfother.isLoaded());
+		if(!loopcomfother.isLoaded()){
+			aresoundsloaded = false;			
+		}
+
+		//console.log("loopdiscomfother=" + loopdiscomfother.isLoaded());
+		if(!loopdiscomfother.isLoaded()){
+			aresoundsloaded = false;			
+		}
+
+		//console.log("minutebass=" + minutebass.isLoaded());
+		if(!minutebass.isLoaded()){
+			aresoundsloaded = false;			
+		} 
+
+
+		var keys = Object.keys(sounds);
+		for(var i=0; i<keys.length&&aresoundsloaded; i++){
+
+			//console.log("sounds[" + keys[i] + "]=" + sounds[keys[i]].isLoaded());
+			if(!sounds[keys[i]].isLoaded()){
+				aresoundsloaded = false;	
+			}
+		}
+		
+
+
+
+		//console.log("aresoundsloaded=" + aresoundsloaded);
+		//console.log("soundcanstart=" + soundcanstart);
+		//console.log("+++++++++++++");
+
+
+		if(soundcanstart&&aresoundsloaded){
+
+			if(!loopsstarted){
+				loopcomfme.pan(-1);
+				loopcomfme.setVolume(0);
+				loopcomfme.loop();
+
+				loopdiscomfme.pan(-1);
+				loopdiscomfme.setVolume(0);
+				loopdiscomfme.loop();
+
+				loopcomfother.pan(1);
+				loopcomfother.setVolume(0);
+				loopcomfother.loop();
+
+				loopdiscomfother.pan(1);
+				loopdiscomfother.setVolume(0);
+				loopdiscomfother.loop();
+
+				loopsstarted = true;
+			}
+
+
+			sketch.fill(0,0,0,10);
+			sketch.noStroke();
+			sketch.rect(0,0,width,height);
+
+
+			et = st.plus({seconds: inc });
+
+
+			if(et.diff(enddatetime).valueOf()>0){
+				sketch.noLoop();
+				// atmo.stop();
+				loopcomfme.stop();
+				loopdiscomfme.stop();
+				loopcomfother.stop();
+				loopdiscomfother.stop();
+				endRitual();
+			}
+
+														    
+
+			var strtime = st.toFormat("yyyy-MM-dd HH:mm:ss");//(h<10?"0":"") + h + ":" + (m<10?"0":"") + m + ":" + (s<10?"0":"") + s;
+
+			// my data
+
+			var towrite = new Array();
+
+														   
+			for(var i=0; i<dataforritual.theData.myData.length; i++){
+				//console.log(dataforritual.theData.myData[i]);
+
+				// 2020-07-20 15:56:20
+				// console.log(dataforritual.theData.myData[i].timestamp);
+				var theDate = luxon.DateTime.fromFormat(dataforritual.theData.myData[i].timestamp ,  "yyyy-MM-dd HH:mm:ss");//Date.parse("01/01/2011 " + dataforritual.theData.myData[i].hour  + ":" + dataforritual.theData.myData[i].minute + ":" + dataforritual.theData.myData[i].second);	   	
+				// console.log(theDate.toString());
+
+				if( st.diff(theDate).valueOf()<0 && et.diff(theDate).valueOf()>0  ){
+
+
+					//console.log("FOUND!");
+					// play draw
+					var jdata = JSON.parse(  dataforritual.theData.myData[i].jsonstring );
+
+					// console.log("jdata:");
+					// console.log(jdata);
+
+					var comfortvolume = 0;
+					var discomfortvolume = 0;
+					var coeff = 1;
+
+					for(var j = 0; j<ritualdata.datatocollect.length; j++){
+						var field = ritualdata.datatocollect[j].fieldid;
+						var label = ritualdata.datatocollect[j].label;
+						// console.log("-> field:");
+						// console.log(field);
+						if(typeof jdata[field] != 'undefined'){
+							var value = jdata[field];
+							// console.log(field + "-->" + value);
+
+							if(field=="quanto"){
+								coeff = parseFloat(value) / 100;
+							}
+
+							if(field=="discomfortcomfort"){
+								comfortvolume = (parseFloat(value) + 100)/200;
+								discomfortvolume = 1 - comfortvolume;
+							}
+
+							if(ritualdata.datatocollect[j].type=="text"){
+								value = unescape(value);
+							}
+
+							if(value!="no answer"){
+								towrite.push(  "<strong>" + label + "</strong>:<br />" + value  );
+
+								var key = value;
+								key = key.replace(/[\W_]+/g,"_");
+
+								//console.log("-> key:");
+								//console.log(key);
+
+								//console.log(sounds[key]);
+
+
+								if(sounds[key]){
+									sounds[key].pan(-1);
+									sounds[key].setVolume(0.5);
+									sounds[key].play();
+								}	
+							}	
+						}
+
+					}
+
+					loopcomfme.setVolume( comfortvolume*coeff );
+					loopdiscomfme.setVolume( discomfortvolume*coeff );
+				}
+			}
+
+			if(towrite.length>0){
+
+				towriteme = towrite;
+
+				//sketch.fill(255,255,255);
+				//sketch.noStroke();
+				//sketch.rect(0,0,width/2,height);
+
+			}
+
+			// end  my data
+
+
+
+
+
+			// the other's data
+
+			towrite = new Array();
+
+			for(var i=0; i<dataforritual.theData.theOthersData.length; i++){
+				//console.log(dataforritual.theData.myData[i]);
+
+				//var thedate = Date.parse("01/01/2011 " + dataforritual.theData.theOthersData[i].hour  + ":" + dataforritual.theData.theOthersData[i].minute + ":" + dataforritual.theData.theOthersData[i].second);	   	
+				var theDate = luxon.DateTime.fromFormat(dataforritual.theData.theOthersData[i].timestamp , "yyyy-MM-dd HH:mm:ss");
+
+				if( st.diff(theDate).valueOf()<0 && et.diff(theDate).valueOf()>0  ){
+
+
+					//console.log("FOUND!");
+					// play draw
+					var jdata = JSON.parse(  dataforritual.theData.theOthersData[i].jsonstring );
+
+					//console.log("jdata:");
+					//console.log(jdata);
+
+					var comfortvolume = 0;
+					var discomfortvolume = 0;
+					var coeff = 1;
+
+
+
+					for(var j = 0; j<ritualdata.datatocollect.length; j++){
+						var field = ritualdata.datatocollect[j].fieldid;
+						var label = ritualdata.datatocollect[j].label;
+						//console.log("-> field:");
+						//console.log(field);
+						if(typeof jdata[field] != 'undefined'){
+							var value = jdata[field];
+							//console.log(field + "-->" + value);
+
+							if(field=="quanto"){
+								coeff = parseFloat(value) / 100;
+							}
+
+							if(field=="discomfortcomfort"){
+								comfortvolume = (parseFloat(value) + 100)/200;
+								discomfortvolume = 1 - comfortvolume;
+							}
+
+
+							if(ritualdata.datatocollect[j].type=="text"){
+								value = unescape(value);
+							}
+
+							if(value!="no answer"){
+								towrite.push(  "<strong>" + label + "</strong><br />" + value  );
+
+								var key = value;
+								key = key.replace(/[\W_]+/g,"_");
+
+								//console.log("-> key:");
+								//console.log(key);
+
+								//console.log(sounds[key]);
+
+
+								if(sounds[key]){
+									sounds[key].pan(1);
+									sounds[key].setVolume(0.5);
+									sounds[key].play();
+								}	
+							}	
+						}
+
+					}
+
+
+					loopcomfother.setVolume( comfortvolume*coeff );
+					loopdiscomfother.setVolume( discomfortvolume*coeff );
+
+
+				}
+			}
+
+			if(towrite.length>0){
+				//sketch.fill(255,255,255);
+				//sketch.noStroke();
+				//sketch.rect(width/2,0,width/2,height);
+
+				towriteother = towrite;
+
+			}
+
+			// end  the other's data
+
+
+
+			if(towriteme!=null){
+
+						var tws = "";
+						for(var k = 0; k<towriteme.length; k++){
+							tws = tws + towriteme[k];
+							if(k<(towriteme.length-1)){
+								tws = tws + "<br /><br />";
+							}
+							//sketch.text(towriteme[k], margin, starty + k*(fheight+margin)  );	
+						}
+						// sketch.text(tws, margin, 30, width/2 - 2*margin , height - 65  );	
+						//$("#yourtextpanel").html("");
+						$("#yourtextpanel").html(tws);
+
+			}
+
+
+			if(towriteother!=null){
+
+						var tws = "";
+						for(var k = 0; k<towriteother.length; k++){
+							tws = tws + towriteother[k];
+							if(k<(towriteother.length-1)){
+								tws = tws + "<br /><br />";
+							}
+							//sketch.text(towriteother[k], width-margin, starty + k*(fheight+margin)  );	
+						}
+						//sketch.text(tws, width/2 + margin, 30 , width/2 - 2*margin , height - 65  );	
+						//$("#yourothertextpanel").html("");
+						$("#yourothertextpanel").html(tws);
+
+			}
+
+
+
+			sketch.fill(255,0,0);
+			sketch.textSize(15);
+			
+			sketch.textFont('Helvetica');
+			sketch.textAlign(sketch.LEFT,sketch.BOTTOM);
+			sketch.text("TU", 0, height-30 );
+			sketch.textAlign(sketch.RIGHT,sketch.BOTTOM);
+			sketch.text("L'ALTRO", width, height-30 );	
+
+
+
+			timeelapsed = timeelapsed + sketch.deltaTime;
+
+			// ogni minuto : basso
+			//console.log(  parseInt(sketch.frameCount/sketch.frameRate())%3 );
+			if(  timeelapsed>4000  ){   
+					minutebass.play();
+					sketch.fill(255,0,0);
+					sketch.noStroke();
+					var wwww = 30;
+
+					sketch.rect(width/2-wwww/2,0,wwww,height);
+					timeelapsed = 0;
+			}
+
+
+			// draw time
+			sketch.fill(0,0,0);
+			sketch.noStroke();
+			sketch.rect(width/2-150,0,300,30);
+			sketch.fill(255,255,255);
+			sketch.textSize(20);
+			sketch.textAlign(sketch.CENTER,sketch.CENTER);
+			sketch.textFont('Helvetica');
+			sketch.text(strtime + " " + ritualdata.referencetimezone, width/2, 15);
+
+			// at the end
+			ph = h;
+			pm = m;
+			ps = s;
+
+			st = et;
+
+
+
+
+		} // if(soundcanstart){
+		else {
+
+			sketch.background(0,0,0);
+			sketch.fill(Math.abs(255*Math.sin(sketch.frameCount/10)),Math.abs(255*Math.cos(sketch.frameCount/15)),Math.abs(255*Math.sin(sketch.frameCount/20)));
+			sketch.textSize(50);
+			sketch.textAlign(sketch.CENTER,sketch.CENTER);
+			sketch.textFont('Helvetica');
+			sketch.text("CLICK ME", width/2, 60);
+
+		}
+			
+	};
+	
+
+});
+
 }
 
+var bassplayed=0;
 
 function endRitual(){
 	$("#toMenu").css("display","block");
@@ -1208,5 +1568,21 @@ function endRitual(){
 		);
 
 	// andare all'assemblea
-	toAssembly();
+	//toAssembly();
+	toCouples();
+	//toMenu();
 }
+
+
+
+function crypt(data){
+	var res = LZString.compressToEncodedURIComponent(data);
+	return res;
+}
+
+function decrypt(data){
+	var res = LZString.decompressFromEncodedURIComponent(data);
+	return res;
+}
+
+

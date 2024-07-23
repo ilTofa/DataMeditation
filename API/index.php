@@ -59,12 +59,26 @@ function doRegister($request,$conn){
 	    $result->iduser = $conn->lastInsertId();
 
 	} else {
-		$result->error = "User already exists.";
+		$result->error = "Password sbagliata..";
 	}
 
 	$stmt->closeCursor();
 
 	return $result;	
+}
+
+function decr($jsondata,$groupid){
+	$res = "";
+
+	for ($counter = 0; $counter < strlen($jsondata); $counter++)
+	{
+	    if ($counter % 2 == 0)
+	    {
+	        $res .= $jsondata[$counter];
+	    }
+	}
+
+	return $res;
 }
 
 function doSigninToGroup($request,$conn){
@@ -138,10 +152,11 @@ function doStoreData($request,$conn){
 	$todaysdate = $request["year"] . "-" . $request["month"] . "-" . $request["day"] . " " . $request["hour"] . ":" . $request["minute"] . ":" . $request["second"];
 	$yesterdaysdate = strtotime("yesterday");
 
+	$d = $request["jsondata"];
 
 	$q = "INSERT INTO jsondata(userid,groupid,timestamp,jsonstring,year,month,day,hour,minute,second) VALUES(:userid,:groupid, :datetime , :data , :year , :month , :day , :hour , :minute, :second )";
 	$stmt = $conn->prepare($q);
-	$stmt->execute([':userid' => $request["userid"] , ':groupid' => $request["groupid"] ,  ":datetime" => $todaysdate  ,  ":data" => $request["jsondata"]   ,  ":year" => $request["year"] , ":month" => $request["month"] , ":day" => $request["day"] , ":hour" => $request["hour"] , ":minute" => $request["minute"] , ":second" => $request["second"] ] );
+	$stmt->execute([':userid' => $request["userid"] , ':groupid' => $request["groupid"] ,  ":datetime" => $todaysdate  ,  ":data" => $d   ,  ":year" => $request["year"] , ":month" => $request["month"] , ":day" => $request["day"] , ":hour" => $request["hour"] , ":minute" => $request["minute"] , ":second" => $request["second"] ] );
 
 	return $result;	
 }
@@ -263,6 +278,32 @@ function doGetMyCouple($request,$conn){
 	return $result;	
 }
 
+function getAllData($request,$conn){
+	$result = new \stdClass();
+	$q2 = "SELECT * FROM jsondata WHERE groupid = :groupid";
+	$stmt2 = $conn->prepare($q2);
+	$stmt2->execute([':groupid' => $request["groupid"] ] );
+	$theData = new \stdClass();
+	$theData->myData = array();
+	while( $r1 = $stmt2->fetch() ){
+		$o = new \stdClass();
+		$o->jsonstring = $r1["jsonstring"];
+		$o->userid = $r1["userid"];
+		$o->hour = $r1["hour"];
+		$o->timestamp = $r1["timestamp"];
+		$o->minute = $r1["minute"];
+		$o->second = $r1["second"];
+		$theData->myData[] = $o;
+	}
+	$stmt2->closeCursor();
+
+	// restituire
+	$result->theData = $theData;
+
+	return $result;	
+
+}
+
 function doGetMyCoupleDataForRitual($request,$conn){
 	$result = new \stdClass();
 
@@ -273,6 +314,9 @@ function doGetMyCoupleDataForRitual($request,$conn){
 
 	$todaysdate = strtotime("today");
 	$yesterdaysdate = strtotime("yesterday");
+	if( $request["islastday"]=="true" ){
+		$yesterdaysdate = strtotime( $request["howmanydaysdata"] . " days ago");
+	}
 	//$todaysdate = strtotime("2020/07/24");
 	//$yesterdaysdate = strtotime("2020/07/23");
 
@@ -345,7 +389,7 @@ function doListUsersInGroups($request,$conn){
 function doEndRitualStatus($request,$conn){
 	$result = new \stdClass();
 
-	$q2 = "UPDATE access_to_ritual SET status=3 WHERE userid=:userid AND groupid=:groupid";
+	$q2 = "UPDATE access_to_ritual SET status=3 WHERE iduser=:userid AND groupid=:groupid";
 	$stmt2 = $conn->prepare($q2);
 	$stmt2->execute([':userid' => $request["userid"] , ':groupid' => $request["groupid"] ]);
 
@@ -490,6 +534,8 @@ if($cmd=="login"){
 	$result = doRemoveCouples($_REQUEST,$conn);
 } else if($cmd=="savedata"){
 	$result = saveData($_REQUEST,$conn);
+} else if($cmd=="getalldata"){
+	$result = getAllData($_REQUEST,$conn);
 } else {
 	$result->err = "Error. Command not understood.";
 }

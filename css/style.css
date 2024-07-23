@@ -8,12 +8,32 @@ body,html{
 	margin: 0px;
 	padding: 0px;
 	font: 18px 'Helvetica Neue',sans-serif;
-	background: #000000;
+	background: rgb(0,0,0);
 	color: #FFFFFF;
+	text-align: center;
 }
 
+
+.rwd-video {
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    position: relative;
+}
+.rwd-video iframe,
+.rwd-video object,
+.rwd-video embed {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+
 .panel{
-	background: #000000;
+	background: rgb(0,0,0);
 	color: #FFFFFF;
 	position: fixed;
 	top: 60px;
@@ -25,8 +45,18 @@ body,html{
 	overflow: scroll;
 }
 
+.logocontainer{
+	width: 100%;
+	height: auto;
+	margin: 0px;
+	margin-bottom: 20px;
+	padding: 0px;
+	align-content: center;
+	text-align: center;
+}
+
 .panelcover{
-	background: #000000;
+	background: rgb(0,0,0);
 	color: #FFFFFF;
 	position: fixed;
 	top: 00px;
@@ -39,10 +69,38 @@ body,html{
 }
 
 #vizpanel{
+	position: relative;
 	width: 100%;
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
+	z-index: 400;
+}
+
+#yourtextpanel{
+	position: absolute;
+	width: calc(40% - 10px);
+	height: calc(100% - 120px);
+	margin: 0px;
+	padding: 0px;
+	top: 60px;
+	left: 5px;
+	z-index: 500;	
+	font: 16px Helvetica,Arial,sans-serif;
+	text-align: left;
+}
+
+#yourothertextpanel{
+	position: absolute;
+	width: calc(40% - 10px);
+	height: calc(100% - 120px);
+	margin: 0px;
+	padding: 0px;
+	top: 60px;
+	right: 5px;
+	z-index: 500;	
+	font: 16px Helvetica,Arial,sans-serif;
+	text-align: right;
 }
 
 
@@ -96,20 +154,22 @@ body,html{
 	display: none;
 }
 
-.menuitem{
+.menuitem , .menulink{
+	display: block;
+	text-decoration: none;
 	margin: 10px;
 	padding: 20px;
 	text-align: center;
 	line-height: 30px;
 	width: calc(100% - 60px);
-	background: #FF0000;
-	color: #FFFFFF;
+	background: #00FF00;
+	color: #000000;
 	animation: hton 1s;
 	font: 18px 'Helvetica Neue',sans-serif;
 	border: 0px;
 }
 
-.menuitem:hover{
+.menuitem:hover , .menulink:hover{
 	background: #FFFF00;
 	color: #000000;
 	animation: ntoh 1s;
@@ -117,11 +177,11 @@ body,html{
 
 @keyframes hton {
   from {background-color: #FFFF00; color: #000000;}
-  to {background-color: #FF0000; color: #FFFFFF;}
+  to {background-color: #00FF00; color: #000000;}
 }
 
 @keyframes ntoh {
-  from {background-color: #FF0000; color: #FFFFFF;}
+  from {background-color: #00FF00; color: #000000;}
   to {background-color: #FFFF00; color: #000000;}
 }
 
@@ -163,19 +223,25 @@ body,html{
 }
 
 .fieldcontainer{
-	margin-bottom: 20px;
+	margin-bottom: 25px;
 }
 
-.fieldlables{
-	font: bold 25px 'Helvetica Neue',sans-serif;
+.fieldlabel, .fieldlables{
+	font: 20px 'Helvetica Neue',sans-serif;
 }
 
 .fieldholder{
-	overflow: auto;
+	margin-top: 12px;
+	margin-bottom: 45px;
 }
 
 .fieldholder input{
-	margin-left: 15px;
+	margin-left: 0px;
+}
+
+.fieldholder input[type="text"]{
+	width: 100%;
+	font: 20px Helvetica,Arial,sans-serif;
 }
 
 .fieldholder label{
@@ -186,9 +252,19 @@ body,html{
 	overflow: hidden;
 }
 
+.fielditem input , .fielditem select{
+	font: 20px Helvetica,Arial,sans-serif;
+	color: #000000;
+	background: #FFFFFF;
+	border: 0px;
+}
+
+
 .datacollectionform{
-	width: 100%;
+	width: calc(100% - 500px);
 	height: 100%;
+	padding-left: 250px;
+	padding-right: 250px;
 }
 
 .maintitle{
@@ -211,6 +287,16 @@ body,html{
 	margin-bottom: 25px;
 }
 
-@media all and (max-width: 800px) {
+#timeselector{
+	text-align: center;
+	font: bold 25px Helvetica,Arial,sans-serif;
+}
 
+@media all and (max-width: 800px) {
+	.datacollectionform{
+		width: calc(100% - 60px);
+		height: 100%;
+		padding-left: 30px;
+		padding-right: 30px;
+	}
 }
