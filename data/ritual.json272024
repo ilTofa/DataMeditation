@@ -1,0 +1,87 @@
+{
+	"refreshtimems": 5000,
+	"groupid": "FB",
+	"assemblyjitsymeet": "https://meet.jit.si/All4ClimateAtMAXXI",
+	"finalday": "2024-06-28",
+	"referencetimezone": "UTC",
+	"howmanydaysdataonlastday": 4,
+	"howmanydaysdatatoonlastday": 0,
+	"ritual": {
+		"starttime": "15:45:00",
+		"endtime":	"16:10:00", 
+		"minutestoconsideronline": 10,
+		"atleastthispartofgrouptostartritual": 0.3,
+		"waitingforothers": "... aspettiamo che arrivino anche gli altri",
+		"minutebass": "sounds/smallbass.mp3",
+		"hourbass": "sounds/bigbass.mp3",
+		"atmosphere": "sounds/atmo.mp3",
+		"comfortsound": "sounds/comfortII.mp3",
+		"discomfortsound": "sounds/discomfortII.mp3"
+	},
+	"couplesmeet": {
+		"starttime": "15:57:00",
+		"endtime":	"16:30:00"
+	},
+	"assembly": {
+		"eachdaystarttime": "00:00:00",
+		"eachdayendtime": "00:00:00",
+		"finaldaystarttime": "00:00:00",
+		"finaldayendtime": "00:00:00"
+	},
+	"datatocollect": [
+
+		{
+			"label": "Cosa stai facendo?",
+			"fieldid": "cosa",
+			"type": "text"
+		},
+		{
+			"label": "Dove sei?",
+			"fieldid": "dove",
+			"type": "select",
+			"positions": [ 
+				["Casa","sounds/home.mp3"],
+	        	["Ufficio","sounds/office.mp3"],
+	        	["Scuola/Università","sounds/scuola.mp3"],
+	        	["Ospedale","sounds/hospital.mp3"],
+	        	["Negozi/Shopping Center","sounds/shopping.mp3"],
+	        	["Albergo","sounds/hotel.mp3"],
+	        	["Servizi (Poste, Banche...)","sounds/postoffice.mp3"],
+	        	["Musei/Teatri/Cinema/Eventi","sounds/movies.mp3"],
+	        	["Vita Notturna","sounds/club.mp3"],
+	        	["Mezzo Pubblico","sounds/publictransport.mp3"],
+	        	["Mezzo Privato","sounds/inthecar.mp3"],
+	        	["Stazioni/Aeroporto","sounds/station.mp3"],
+	        	["In Strada/Piazza","sounds/steps.mp3"],
+	        	["Parco/Natura Urbana","sounds/park.mp3"],
+	        	["Ruralità (Campagna, Montagna...)","sounds/rrurrral.mp3"],
+	        	["Acqua (Mare, Lago...)","sounds/water.mp3"]
+        	]
+		},
+		{
+			"label": "Quanto sei sensibile all'ambiente in questo istante?",
+			"fieldid": "quanto",
+			"type": "range",
+			"min": 0,
+			"max": 100,
+			"default" : 0,
+			"step": 1
+		},
+		{
+			"label": "👈 Discomfort/Comfort 👉",
+			"fieldid": "discomfortcomfort",
+			"type": "range",
+			"min": -100,
+			"max": 100,
+			"default" : 0,
+			"step": 1
+		},
+		{
+			"label": "Messaggio nella bottiglia",
+			"fieldid": "messaggio",
+			"type": "text"
+		}
+
+	]
+}
+

@@ -1,16 +1,16 @@
 {
         "refreshtimems": 5000,
-        "groupid": "senseable",
-        "assemblyjitsymeet": "https://jitsi.programmatoripercaso.it/Senseable_SummerSchool2024",
-        "finalday": "2024-09-02",
+        "groupid": "FB",
+        "assemblyjitsymeet": "https://sfu.mirotalk.com/join/DataMeditation_luglio2024",
+        "finalday": "2024-07-07",
         "referencetimezone": "UTC",
-        "howmanydaysdataonlastday": 8,
-        "howmanydaysdatatoonlastday": 6,
+        "howmanydaysdataonlastday": 1,
+        "howmanydaysdatatoonlastday": 0,
         "ritual": {
                 "starttime": "16:30:00",
-                "endtime":      "16:45:00",
+                "endtime":      "16:40:00",
                 "minutestoconsideronline": 5,
-                "atleastthispartofgrouptostartritual": 0.7,
+                "atleastthispartofgrouptostartritual": 0.3,
                 "waitingforothers": "... aspettiamo che arrivi il resto del gruppo",
                 "minutebass": "sounds/smallbass.mp3",
                 "hourbass": "sounds/bigbass.mp3",
@@ -19,14 +19,14 @@
                 "discomfortsound": "sounds/discomfortII.mp3"
         },
         "couplesmeet": {
-                "starttime": "16:45:00",
-                "endtime":      "17:00:00"
+                "starttime": "16:40:00",
+                "endtime":      "16:50:00"
         },
         "assembly": {
-                "eachdaystarttime": "00:00:00",
-                "eachdayendtime": "00:00:00",
-                "finaldaystarttime": "00:00:00",
-                "finaldayendtime": "00:00:00"
+                "eachdaystarttime": "16:40:00",
+                "eachdayendtime": "17:40:00",
+                "finaldaystarttime": "16:50:00",
+                "finaldayendtime": "17:50:00"
         },
         "datatocollect": [
 

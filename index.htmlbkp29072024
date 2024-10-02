@@ -50,12 +50,12 @@
 
     <div id="menupanel" class="panel">
         <div id="gotologin" class="menuitem">vai all'entrata</div>
-        <div id="gotodata" class="menuitem">genera i tuoi dati</div>
+        <div id="gotodata" class="menuitem">raccogli i tuoi dati</div>
         <div class="hero">
             <br />
             <img src="images/smallicon-01.png" width="120" height="120" boder="0" />
             <br />
-MERAVIGLIA! :)
+MERAVVIGLIA! :)
             <br />
         </div>
         <div id="gotoritualwaitroom" class="menuitem">MEDITAZIONE</div>

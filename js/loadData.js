@@ -2,7 +2,7 @@
 var APIBaseUrl = "https://he-r.it/DataMeditation/API/index.php";
 
 // what is the group ID on yout database for which you want to generare the visualization?
-var groupid = 4;
+var groupid = 18;
 
 var theData = null;
 
@@ -13,12 +13,13 @@ var colorschemes = null;
 var userids = null;
 
 $(document).ready(function () {
+	console.log("calling: ", APIBaseUrl + "?cmd=savedata&groupid=" +  groupid + "?v=" + Math.random()*Math.random())
 
 	$.getJSON(APIBaseUrl + "?cmd=savedata&groupid=" +  groupid + "?v=" + Math.random()*Math.random() ,function(data){
 
 		theData = data;
 
-		//console.log(theData);
+		console.log(theData);
 
 		prepareData();
 
@@ -33,7 +34,7 @@ function prepareData(){
 	var useridstotal = new Array();
 	theData.theData.forEach(function(d){
 		
-		var jd = JSON.parse( d.jsonstring );
+		var jd = JSON.parse( LZString.decompressFromEncodedURIComponent(d.jsonstring) );
 
 		d.theDateTime = luxon.DateTime.fromFormat(d.timestamp ,  "yyyy-MM-dd HH:mm:ss");
 		
@@ -91,14 +92,12 @@ var labeltextsize = 4500;
 var numberofhours = 0;
 var rowheight = 200;
 
-
-
 function setupViz(){
 	totalwidth = margin + labeldatesize + axissize + margin;
 	colorschemes = new Object();
 	ritualDefinition.datatocollect.forEach(function(d){
+		console.log("setupViz. Setting for", d)
 		if(d.type=="switch" || d.type=="select"){
-
 			var fieldid = d.fieldid;
 			var domaini = new Array();
 			d.positions.forEach(function(e){
@@ -186,7 +185,7 @@ function prepareLegend(){
 	});
 
 	// to generate only the legend, uncomment below
-	//d3.select("#vizholder svg").style("display","none"); 
+	// d3.select("#vizholder svg").style("display","none"); 
 
 }
 
@@ -257,7 +256,7 @@ function drawVViz(){
 			if( d.theDateTime.diff(previoushour).valueOf()>=0 && d.theDateTime.diff(thishour).valueOf()<=0  ){
 				var currentx = margin + labeldatesize + axissize + margin;
 
-				//console.log(d.theDateTime.toString());
+// 				console.log(d.theDateTime.toString());
 
 
 				ritualDefinition.datatocollect.forEach(function(e){
@@ -265,7 +264,8 @@ function drawVViz(){
 					var fid = e.fieldid;
 
 					if( typeof d.jsondata[fid] != 'undefined' && d.jsondata[fid]!=null ){
-						if(e.type!="text"){
+						if(e.type!="text" && typeof colorschemes[fid] !== 'undefined'){
+// 							console.log("fid", fid, "colorschemes[fid]", colorschemes[fid], "d.jsondata[fid]", d.jsondata[fid])
 							var c = colorschemes[fid]( d.jsondata[fid] );
 
 							var offset = -userslice;
