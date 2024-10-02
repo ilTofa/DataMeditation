@@ -1117,8 +1117,8 @@ function viz(){
 	   //	inc = 120 * (ritualdata.howmanydaysdataonlastday - ritualdata.howmanydaysdatatoonlastday );
 	   // }
 	    
-	   startdatetime = luxon.DateTime.fromISO("2024-08-26T07:30:00");
-	   enddatetime = luxon.DateTime.fromISO("2024-08-28T07:30:00");
+	   startdatetime = luxon.DateTime.fromISO("2024-09-26T13:00:00");
+	   enddatetime = luxon.DateTime.fromISO("2024-09-28T13:00:00");
 	    
 	   st = startdatetime;
 

@@ -185,7 +185,7 @@ function prepareLegend(){
 	});
 
 	// to generate only the legend, uncomment below
-	// d3.select("#vizholder svg").style("display","none"); 
+	d3.select("#vizholder svg").style("display","none"); 
 
 }
 

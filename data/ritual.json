@@ -1,14 +1,14 @@
 {
         "refreshtimems": 5000,
-        "groupid": "senseable",
-        "assemblyjitsymeet": "https://jitsi.programmatoripercaso.it/Senseable_SummerSchool2024",
-        "finalday": "2024-09-02",
+        "groupid": "festivalbiblico",
+        "assemblyjitsymeet": "https://jitsi.programmatoripercaso.it/FestivalBiblico2024",
+        "finalday": "2024-10-01",
         "referencetimezone": "UTC",
-        "howmanydaysdataonlastday": 8,
-        "howmanydaysdatatoonlastday": 6,
+        "howmanydaysdataonlastday": 6,
+        "howmanydaysdatatoonlastday": 5,
         "ritual": {
-                "starttime": "16:30:00",
-                "endtime":      "16:45:00",
+                "starttime": "10:25:00",
+                "endtime":      "10:40:00",
                 "minutestoconsideronline": 5,
                 "atleastthispartofgrouptostartritual": 0.7,
                 "waitingforothers": "... aspettiamo che arrivi il resto del gruppo",
@@ -19,14 +19,14 @@
                 "discomfortsound": "sounds/discomfortII.mp3"
         },
         "couplesmeet": {
-                "starttime": "16:45:00",
-                "endtime":      "17:00:00"
+                "starttime": "10:40:00",
+                "endtime":      "11:00:00"
         },
         "assembly": {
-                "eachdaystarttime": "00:00:00",
-                "eachdayendtime": "00:00:00",
-                "finaldaystarttime": "00:00:00",
-                "finaldayendtime": "00:00:00"
+                "eachdaystarttime": "13:15:00",
+                "eachdayendtime": "13:30:00",
+                "finaldaystarttime": "11:00:00",
+                "finaldayendtime": "11:30:00"
         },
         "datatocollect": [
 
