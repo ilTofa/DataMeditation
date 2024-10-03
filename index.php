@@ -28,11 +28,11 @@
         <div class="formcontainer">
             <div class="fieldcontainer">
                 <div class="fieldlabel">Login</div>
-                <div class="fielditem"><input type="text" id="login" name="login" /></div>
+                <div class="fielditem"><input type="text" id="login" name="login"  required="required" pattern="[A-Za-z0-9]{1,20}" /></div>
             </div>
             <div class="fieldcontainer">
                 <div class="fieldlabel">Password</div>
-                <div class="fielditem"><input type="password" id="password" name="password" /></div>
+                <div class="fielditem"><input type="password" id="password" name="password"  required="required" pattern="[A-Za-z0-9]{1,20}" /></div>
             </div>
             <!--div class="fieldcontainer"-->
                 <!--div class="fieldlabel">Group ID</div-->
@@ -139,6 +139,6 @@ MERAVIGLIA! :)
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="js/luxon.min.js"></script>
     <script src="js/lz-string.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script.js?v=<?= time() ?>"></script>
 </body>
 </html>
