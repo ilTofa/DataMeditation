@@ -412,54 +412,60 @@ function refreshWaitingRoom(){
 var waitingroomInterval = null;
 
 function doLogin(){
-	login = $("#login").val().trim().toUpperCase();
-	password = $("#password").val().trim().toUpperCase();
-	groupid = $("#groupid").val().trim().toUpperCase();
-
-	user = null;
-
-	$.getJSON(
-		APIBaseUrl + "?cmd=login&login=" + login + "&password=" + password + "&groupid=" + groupid + "&v=" + Math.random()*Math.random(),
-		function(data){
-			// console.log(data);
-			if(data.error){
-				if(confirm(data.error)){
+	if ($("#login").val().trim()=="") {
+		alert("Empty login is not allowed")
+	} else if ($("#password").val().trim()=="") {
+		alert("Empty password is not allowed")
+	} else {
+		login = $("#login").val().trim().toUpperCase();
+		password = $("#password").val().trim().toUpperCase();
+		groupid = $("#groupid").val().trim().toUpperCase();
+	
+		user = null;
+	
+		$.getJSON(
+			APIBaseUrl + "?cmd=login&login=" + login + "&password=" + password + "&groupid=" + groupid + "&v=" + Math.random()*Math.random(),
+			function(data){
+				// console.log(data);
+				if(data.error){
+					if(confirm(data.error)){
+						$.getJSON(
+							APIBaseUrl + "?cmd=register&login=" + login + "&password=" + password + "&groupid=" + groupid + "&v=" + Math.random()*Math.random(),
+							function(data){
+								if(data.error){
+									alert(data.error);
+								} else {
+									user = data;
+								}
+							}
+						);
+					}
+				}  else {
+					user = data;
+				}
+	
+				if(user!=null){
+					// sign in to group
 					$.getJSON(
-						APIBaseUrl + "?cmd=register&login=" + login + "&password=" + password + "&groupid=" + groupid + "&v=" + Math.random()*Math.random(),
+						APIBaseUrl + "?cmd=togroup&iduser=" + user.iduser + "&groupid=" + groupid + "&v=" + Math.random()*Math.random(),
 						function(data){
+							// console.log(data);
+	
 							if(data.error){
 								alert(data.error);
 							} else {
-								user = data;
+								// if success: show menu
+								group = data;
+								doCouples();
+								fromLogintoMenu();
 							}
+							
 						}
 					);
 				}
-			}  else {
-				user = data;
 			}
-
-			if(user!=null){
-				// sign in to group
-				$.getJSON(
-					APIBaseUrl + "?cmd=togroup&iduser=" + user.iduser + "&groupid=" + groupid + "&v=" + Math.random()*Math.random(),
-					function(data){
-						// console.log(data);
-
-						if(data.error){
-							alert(data.error);
-						} else {
-							// if success: show menu
-							group = data;
-							doCouples();
-							fromLogintoMenu();
-						}
-						
-					}
-				);
-			}
-		}
-	);
+		);	
+	}
 }
 
 function doCouples(){
