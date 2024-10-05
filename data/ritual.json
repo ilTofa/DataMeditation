@@ -68,7 +68,7 @@
                         "step": 1
                 },
                 {
-                        "label": "👈 Discomfort/Comfort 👉",
+                        "label": "Quanto ti senti a tuo agio?",
                         "fieldid": "discomfortcomfort",
                         "type": "range",
                         "min": -100,

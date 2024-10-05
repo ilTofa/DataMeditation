@@ -8,8 +8,8 @@ body,html{
 	margin: 0px;
 	padding: 0px;
 	font: 18px 'Helvetica Neue',sans-serif;
-	background: rgb(0,0,0);
-	color: #FFFFFF;
+	background: #DBECEB; 
+	color: #FF4169; 
 	text-align: center;
 }
 
@@ -31,10 +31,12 @@ body,html{
     width: 100%;
 }
 
+#ritualinterfacepanel .panel{color:#fff}
+.menusec{background-color: #f893a8 !important;}
 
 .panel{
-	background: rgb(0,0,0);
-	color: #FFFFFF;
+	background: #DBECEB; 
+	color: #FF4169; 
 	position: fixed;
 	top: 60px;
 	left: 0px;
@@ -46,9 +48,9 @@ body,html{
 }
 
 .logocontainer{
-	width: 100%;
+    width: 50%;
 	height: auto;
-	margin: 0px;
+	margin: 0 auto;
 	margin-bottom: 20px;
 	padding: 0px;
 	align-content: center;
@@ -56,8 +58,8 @@ body,html{
 }
 
 .panelcover{
-	background: rgb(0,0,0);
-	color: #FFFFFF;
+	background: #DBECEB; 
+	color: #FF4169; 
 	position: fixed;
 	top: 00px;
 	left: 0px;
@@ -122,6 +124,7 @@ body,html{
 
 #ritualinterfacepanel{
 	z-index: 500;
+	background-color: #000000;
 }
 
 #couplespanel{
@@ -162,28 +165,34 @@ body,html{
 	text-align: center;
 	line-height: 30px;
 	width: calc(100% - 60px);
-	background: #00FF00;
-	color: #000000;
+	background: #FF4169;
+	color: #ffffff;
 	animation: hton 1s;
 	font: 18px 'Helvetica Neue',sans-serif;
 	border: 0px;
 }
 
 .menuitem:hover , .menulink:hover{
-	background: #FFFF00;
-	color: #000000;
+	background: #78299B;
+	color: #ffffff;
 	animation: ntoh 1s;
 }
 
 @keyframes hton {
-  from {background-color: #FFFF00; color: #000000;}
-  to {background-color: #00FF00; color: #000000;}
+  from {background-color: #78299B; color: #ffffff;}
+  to {background-color: #FF4169; color: #ffffff;}
 }
 
 @keyframes ntoh {
-  from {background-color: #00FF00; color: #000000;}
-  to {background-color: #FFFF00; color: #000000;}
+  from {background-color: #FF4169; color: #ffffff;}
+  to {background-color: #78299B; color: #ffffff;}
 }
+
+/* for some old chrome mobile versions*/
+.datacollectionform #dove, .datacollectionform #cosa, .datacollectionform #messaggio{background-color: #fff }
+
+/* questa è una pezza nel caso di doppia-schermata */
+#defaultCanvas1{display:none}
 
 .userinwaitingroom{
 	padding: 10px;
@@ -194,8 +203,8 @@ body,html{
 }
 
 .userabsent{
-	background: #eeeeee;
-	color: #000000;
+    background: #aaa;
+    color: #fff;
 }
 
 .userwaiting{
@@ -298,5 +307,59 @@ body,html{
 		height: 100%;
 		padding-left: 30px;
 		padding-right: 30px;
+	}
+}
+
+
+/* Container delle immagini */
+.image-section {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.image-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    vertical-align: middle;
+    align-content: center;
+    align-items: center;
+}
+
+/* Container di ciascuna immagine */
+.image-item {
+    flex: 1;
+    margin: 5px;
+    text-align: center;
+}
+
+/* Titolini sopra le immagini */
+.image-title {
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 5px;
+	margin-top: 20px;
+}
+
+/* Stili per mobile */
+@media only screen and (max-width: 640px) {
+    .image-row {
+        flex-direction: column; /* Ogni immagine diventa una riga */
+    }
+
+    .image-item {
+        margin: 10px 0;
+    }
+
+    .partner-image, .small-partner-image {
+        max-width: 200px; /* Riduzione delle dimensioni delle immagini per mobile */
+    }
+
+	.logocontainer{
+		width: 100%;
+	}
+	.image-section {
+		text-align: center;
 	}
 }

@@ -945,19 +945,28 @@ function setupdatacollectionform(){
 					val = parseFloat( ritualdata.datatocollect[i].default );
 				}
 
-				var fh = fieldcontainer
-						.append("div")
-						.attr("class","fieldholder")
-						.append("input")
-						.attr("type","range")
-						.attr("name",ritualdata.datatocollect[i].fieldid)
-						.attr("id",ritualdata.datatocollect[i].fieldid)
-						.attr("min",ritualdata.datatocollect[i].min)
-						.attr("max",ritualdata.datatocollect[i].max)
-						.attr("step",ritualdata.datatocollect[i].step)
-						.attr("value", val );
-
-				
+					var fh = fieldcontainer
+					.append("div")
+					.attr("class", "fieldholder");
+			
+				fh.append("input")
+					.attr("type", "range")
+					.attr("name", ritualdata.datatocollect[i].fieldid)
+					.attr("id", ritualdata.datatocollect[i].fieldid)
+					.attr("min", ritualdata.datatocollect[i].min)
+					.attr("max", ritualdata.datatocollect[i].max)
+					.attr("step", ritualdata.datatocollect[i].step)
+					.attr("value", val);
+			
+				// Abbiamo aggiunto il div contenente le etichette per gli slider
+				// Attualmente ho hardcodato il css prima di vedere se si accavalla in qualche config mobile
+				fh.append("div")
+					.attr("class", "range-labels")
+					.style("width", "100%")
+					.style("margin-top", "4px")
+					.style("display", "flex")
+					.style("justify-content", "space-between")
+					.html('<span style="font-size:9px;margin-left: 4px;margin-top: 5px;">Per nulla</span><span style="font-size:9px;margin-right: 4px;margin-top: 5px;">Del tutto</span>');
 			} else if( ritualdata.datatocollect[i].type=="text" ){
 
 				var fh = fieldcontainer
