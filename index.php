@@ -43,13 +43,47 @@
             <div class="fieldcontainer">
                 <div class="fielditem"><button id="submitlogin" class="menuitem">ENTRA</button></div>
             </div>
-            <div class="logocontainer"><img src="images/NA_small.png" width="182" height="58" border="0"></div>
+            <div class="logocontainer">
+                
+            <!-- Inizio: Sezione aggiunta con le immagini e i titolini -->
+            <div class="image-section">
+                <!-- Prima riga: Due immagini con titolini -->
+                <div class="image-row">
+                    <div class="image-item">
+                        <div class="image-title">Un progetto di</div>
+                        <img src="images/HERSLD.png" class="partner-image" alt="Progetto" />
+                    </div>
+                    <div class="image-item">
+                        <div class="image-title">Promosso da</div>
+                        <img src="images/fb.png" class="partner-image" alt="Promosso" />
+                    </div>
+                </div>
+
+                <!-- Seconda riga: Quattro immagini con un titolo sopra -->
+                <div class="image-title">In collaborazione con</div>
+                <div class="image-row">
+                    <div class="image-item">
+                        <img src="images/senseable.png" class="small-partner-image" alt="Collaborazione 1" />
+                    </div>
+                    <div class="image-item">
+                        <img src="images/oikos.png" class="small-partner-image" alt="Collaborazione 2" />
+                    </div>
+                    <div class="image-item">
+                        <img src="images/abarc.png" class="small-partner-image" alt="Collaborazione 3" />
+                    </div>
+                    <div class="image-item">
+                        <img src="images/educi.png" class="small-partner-image" alt="Collaborazione 4" />
+                    </div>
+                </div>
+            </div>
+            <!-- Fine: Sezione aggiunta -->
+
+            </div>
 
         </div>
     </div>
 
     <div id="menupanel" class="panel">
-        <div id="gotologin" class="menuitem">vai all'entrata</div>
         <div id="gotodata" class="menuitem">genera i tuoi dati</div>
         <div class="hero">
             <br />
@@ -61,7 +95,8 @@ MERAVIGLIA! :)
         <div id="gotoritualwaitroom" class="menuitem">MEDITAZIONE</div>
         <div id="gotocouples" class="menuitem">incontra il TUO ALTRO</div>
         <div id="gotoassembly" class="menuitem">entra nell'assemblea</div>
-        <div id="gotoinstructions" class="menuitem">guarda le istruzioni</div>
+        <div id="gotoinstructions" class="menuitem menusec">guarda le istruzioni</div>
+        <div id="gotologin" class="menuitem menusec">torna al login</div>
     </div>
 
     <div id="datacollectionpanel" class="panel">
@@ -70,12 +105,12 @@ MERAVIGLIA! :)
 
     <div id="instructionspanel" class="panel">
 
-        <div class="rwd-video">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/X19BHYdtFsE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-
         <br />
-        <a class="menulink" href="https://drive.google.com/drive/folders/1GHnxTiRHj2Yi9_u1m9Em-_KYy4NOrrQU" target="_blank" >MATERIALI CONDIVISI</a>
+        <a class="menulink" href="https://docs.google.com/presentation/d/1cOaAhiyUxY5pM1VxgpUAH1SUiDl8Sf2T-zw_7ZuLTQk/edit?usp=sharing" target="_blank" >Guida pratica alla Datameditation sull'amore</a>
+        <br />
+        <a class="menulink" href="https://docs.google.com/document/d/1BYUTY-lFB-xRyHJN2rEg9J2OpSPCDuYTzB6-bs7E6JI/edit#heading=h.4vib503n9ok1" target="_blank" >Letture consigliate</a>
+        <br />
+        <a class="menulink" href="https://youtu.be/X19BHYdtFsE" target="_blank" >Tributo a Salvatore: la sua intro al DM sull'ambiente (2021)</a>
        
     </div>
 
