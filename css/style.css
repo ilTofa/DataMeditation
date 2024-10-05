@@ -31,7 +31,7 @@ body,html{
     width: 100%;
 }
 
-#ritualinterfacepanel .panel{color:#fff}
+#ritualinterfacepanel #yourtextpanel, #ritualinterfacepanel #yourothertextpanel{color:#e3a9a9}
 .menusec{background-color: #f893a8 !important;}
 
 .panel{
