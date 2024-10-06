@@ -15,6 +15,9 @@
     * Create your own at http://cspisawesome.com
     -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+    <meta property="og:title" content="Datameditation" />
+    <meta property="og:description" content="Una Meditazione sull'Amore" />
+    <meta property="og:image" content="images/smallicon-01.png" />
     <link rel="stylesheet" href="css/style.css?v=2" />
     <link rel="stylesheet" href="css/rangeslider.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -44,6 +47,7 @@
                 <div class="fielditem"><button id="submitlogin" class="menuitem">ENTRA</button></div>
             </div>
             <div class="logocontainer">
+            <p class="descrizione">"<a href="https://www.festivalbiblico.it/eventi/datameditation/" target="_blank">Datameditation - una Meditazione sull'Amore</a>" al Festival Biblico Tech 2024</p>
                 
             <!-- Inizio: Sezione aggiunta con le immagini e i titolini -->
             <div class="image-section">
@@ -51,11 +55,15 @@
                 <div class="image-row">
                     <div class="image-item">
                         <div class="image-title">Un progetto di</div>
-                        <img src="images/HERSLD.png" class="partner-image" alt="Progetto" />
+                        <a href="https://he-r.it/" target="_blank">
+                            <img src="images/HERSLD.png" class="partner-image" alt="Her - She loves data" />
+                        </a>
                     </div>
                     <div class="image-item">
                         <div class="image-title">Promosso da</div>
-                        <img src="images/fb.png" class="partner-image" alt="Promosso" />
+                        <a href="https://www.festivalbiblico.it/" target="_blank">
+                            <img src="images/fb.png" class="partner-image" alt="Festival Biblico" />
+                        </a>
                     </div>
                 </div>
 
@@ -63,16 +71,24 @@
                 <div class="image-title">In collaborazione con</div>
                 <div class="image-row">
                     <div class="image-item">
-                        <img src="images/senseable.png" class="small-partner-image" alt="Collaborazione 1" />
+                        <a href="https://www.abarc.it/eventi/senseable-summer-school-dello-stretto/" target="_blank">
+                            <img src="images/senseable.png" class="small-partner-image" alt="Senseable Summer School" />
+                        </a>
+                    </div>
+                    <div class="image-item" style="flex:0.5">
+                        <a href="https://www.o1k0s.it/" target="_blank">
+                            <img src="images/oikos.png" class="small-partner-image" alt="o1k0s" />
+                        </a>
                     </div>
                     <div class="image-item">
-                        <img src="images/oikos.png" class="small-partner-image" alt="Collaborazione 2" />
+                        <a href="https://www.abarc.it/" target="_blank">
+                            <img src="images/abarc.png" class="small-partner-image" alt="Accademia Belle Arti RC" />
+                        </a>
                     </div>
                     <div class="image-item">
-                        <img src="images/abarc.png" class="small-partner-image" alt="Collaborazione 3" />
-                    </div>
-                    <div class="image-item">
-                        <img src="images/educi.png" class="small-partner-image" alt="Collaborazione 4" />
+                        <a href="https://www.educational.city/" target="_blank">
+                            <img src="images/educi.png" class="small-partner-image" alt="Educational City" />
+                        </a>
                     </div>
                 </div>
             </div>
