@@ -19,8 +19,8 @@
                 "discomfortsound": "sounds/discomfortII.mp3"
         },
         "couplesmeet": {
-                "starttime": "00:00:00",
-                "endtime":      "00:00:00"
+                "starttime": "17:45:00",
+                "endtime":      "18:00:00"
         },
         "assembly": {
                 "eachdaystarttime": "00:00:00",
