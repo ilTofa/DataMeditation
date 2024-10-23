@@ -31,7 +31,7 @@
         "datatocollect": [
 
                 {
-                        "label": "Quale atto di Amore stai praticando?",
+                        "label": "Quale atto di Amore stai vivendo?",
                         "fieldid": "cosa",
                         "type": "text"
                 },
@@ -44,7 +44,7 @@
                         ["Ufficio","sounds/office.mp3"],
                         ["Scuola/Università","sounds/scuola.mp3"],
                         ["Ospedale","sounds/hospital.mp3"],
-                        ["Negozi/Shopping Center","sounds/shopping.mp3"],
+                        ["Bar/Negozi/Shopping Center","sounds/shopping.mp3"],
                         ["Albergo","sounds/hotel.mp3"],
                         ["Servizi (Poste, Banche...)","sounds/postoffice.mp3"],
                         ["Musei/Teatri/Cinema/Eventi","sounds/movies.mp3"],
