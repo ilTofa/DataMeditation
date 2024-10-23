@@ -1115,7 +1115,7 @@ function viz(){
 	    ca.parent("vizpanel");
 	    sketch.frameRate(10);
 	    //atmo.loop();
-	    sketch.fill(0,0,0);
+	    sketch.fill(219,236,235);
 	    sketch.noStroke();
 	    sketch.rect(0,0,width,height);
 
@@ -1219,7 +1219,7 @@ function viz(){
 			}
 
 
-			sketch.fill(0,0,0,10);
+			sketch.fill(219,236,235,20);
 			sketch.noStroke();
 			sketch.rect(0,0,width,height);
 
@@ -1460,7 +1460,7 @@ function viz(){
 
 
 
-			sketch.fill(255,0,0);
+			sketch.fill(255,65,105);
 			sketch.textSize(15);
 			
 			sketch.textFont('Helvetica');
@@ -1477,7 +1477,7 @@ function viz(){
 			//console.log(  parseInt(sketch.frameCount/sketch.frameRate())%3 );
 			if(  timeelapsed>4000  ){   
 					minutebass.play();
-					sketch.fill(255,0,0);
+					sketch.fill(255,65,105);
 					sketch.noStroke();
 					var wwww = 30;
 
@@ -1487,10 +1487,10 @@ function viz(){
 
 
 			// draw time
-			sketch.fill(0,0,0);
+			sketch.fill(219,236,235);
 			sketch.noStroke();
 			sketch.rect(width/2-150,0,300,30);
-			sketch.fill(255,255,255);
+			sketch.fill(255,65,105);
 			sketch.textSize(20);
 			sketch.textAlign(sketch.CENTER,sketch.CENTER);
 			sketch.textFont('Helvetica');
@@ -1509,8 +1509,9 @@ function viz(){
 		} // if(soundcanstart){
 		else {
 
-			sketch.background(0,0,0);
-			sketch.fill(Math.abs(255*Math.sin(sketch.frameCount/10)),Math.abs(255*Math.cos(sketch.frameCount/15)),Math.abs(255*Math.sin(sketch.frameCount/20)));
+			sketch.background(219,236,235);
+			//sketch.fill(Math.abs(255*Math.sin(sketch.frameCount/10)),Math.abs(255*Math.cos(sketch.frameCount/15)),Math.abs(255*Math.sin(sketch.frameCount/20)));
+			sketch.fill(255,65,105);
 			sketch.textSize(50);
 			sketch.textAlign(sketch.CENTER,sketch.CENTER);
 			sketch.textFont('Helvetica');
