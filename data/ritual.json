@@ -2,15 +2,15 @@
         "refreshtimems": 5000,
         "groupid": "festivalbiblico",
         "assemblyjitsymeet": "https://jitsi.programmatoripercaso.it/FestivalBiblico2024",
-        "finalday": "2024-10-10",
+        "finalday": "2024-10-24",
         "referencetimezone": "UTC",
-        "howmanydaysdataonlastday": 4,
-        "howmanydaysdatatoonlastday": 3,
+        "howmanydaysdataonlastday": 18,
+        "howmanydaysdatatoonlastday": 17,
         "ritual": {
-                "starttime": "17:30:00",
-                "endtime":      "17:45:00",
+                "starttime": "16:00:00",
+                "endtime":      "16:15:00",
                 "minutestoconsideronline": 5,
-                "atleastthispartofgrouptostartritual": 0.7,
+                "atleastthispartofgrouptostartritual": 0.0,
                 "waitingforothers": "... aspettiamo che arrivi il resto del gruppo",
                 "minutebass": "sounds/smallbass.mp3",
                 "hourbass": "sounds/bigbass.mp3",
@@ -19,8 +19,8 @@
                 "discomfortsound": "sounds/discomfortII.mp3"
         },
         "couplesmeet": {
-                "starttime": "17:45:00",
-                "endtime":      "18:00:00"
+                "starttime": "16:15:00",
+                "endtime":      "16:45:00"
         },
         "assembly": {
                 "eachdaystarttime": "00:00:00",
