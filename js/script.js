@@ -1122,8 +1122,8 @@ function viz(){
 	    timeelapsed = 0;
 	    
 
-	   //startdatetime = luxon.DateTime.fromISO(ritualdata.ritual.starttime).minus({day: 1});
-	   //enddatetime = luxon.DateTime.fromISO(ritualdata.ritual.starttime);
+	   startdatetime = luxon.DateTime.fromISO(ritualdata.ritual.starttime).minus({day: 1});
+	   enddatetime = luxon.DateTime.fromISO(ritualdata.ritual.starttime);
 
 	   // if(islastday){
 	   //	startdatetime = luxon.DateTime.fromISO(ritualdata.ritual.starttime).minus({day: parseInt( ritualdata.howmanydaysdataonlastday)  });
@@ -1132,8 +1132,8 @@ function viz(){
 	   //	inc = 120 * (ritualdata.howmanydaysdataonlastday - ritualdata.howmanydaysdatatoonlastday );
 	   // }
 	    
-	   startdatetime = luxon.DateTime.fromISO("2024-10-06T17:30:00");
-	   enddatetime = luxon.DateTime.fromISO("2024-10-08T17:30:00");
+	   //startdatetime = luxon.DateTime.fromISO("2024-10-28T20:00:00");
+	   //enddatetime = luxon.DateTime.fromISO("2024-10-30T20:00:00");
 	    
 	   st = startdatetime;
 
@@ -1554,7 +1554,7 @@ function endRitual(){
 
 	// andare all'assemblea
 	//toAssembly();
-	toCouples();
+	//toCouples();
 	//toMenu();
 }
 
