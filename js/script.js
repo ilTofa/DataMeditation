@@ -1030,7 +1030,8 @@ function viz(){
 	  var m = 0;
 	  var s = 0;
 
-	  var inc = 288/10;
+	  //var inc = 288/10;
+	  var inc = 96/10;
 
 	  var ph = 0;
 	  var pm = 0;
@@ -1553,7 +1554,7 @@ function endRitual(){
 		);
 
 	// andare all'assemblea
-	//toAssembly();
+	toAssembly();
 	//toCouples();
 	//toMenu();
 }

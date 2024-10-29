@@ -7,8 +7,8 @@
         "howmanydaysdataonlastday": 12,
         "howmanydaysdatatoonlastday": 11,
         "ritual": {
-                "starttime": "00:00:00",
-                "endtime":      "00:00:00",
+                "starttime": "20:00:00",
+                "endtime":      "20:15:00",
                 "minutestoconsideronline": 5,
                 "atleastthispartofgrouptostartritual": 0.7,
                 "waitingforothers": "... aspettiamo che arrivi il resto del gruppo",
@@ -23,8 +23,8 @@
                 "endtime":      "00:00:00"
         },
         "assembly": {
-                "eachdaystarttime": "00:00:00",
-                "eachdayendtime": "00:00:00",
+                "eachdaystarttime": "20:15:00",
+                "eachdayendtime": "21:15:00",
                 "finaldaystarttime": "00:00:00",
                 "finaldayendtime": "00:00:00"
         },
