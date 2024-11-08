@@ -10,7 +10,7 @@
                 "starttime": "18:45:00",
                 "endtime":      "19:00:00",
                 "minutestoconsideronline": 5,
-                "atleastthispartofgrouptostartritual": 0.7,
+                "atleastthispartofgrouptostartritual": 0.0,
                 "waitingforothers": "... aspettiamo che arrivi il resto del gruppo",
                 "minutebass": "sounds/smallbass.mp3",
                 "hourbass": "sounds/bigbass.mp3",
