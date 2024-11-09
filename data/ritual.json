@@ -7,8 +7,8 @@
         "howmanydaysdataonlastday": 12,
         "howmanydaysdatatoonlastday": 11,
         "ritual": {
-                "starttime": "11:20:00",
-                "endtime":      "11:35:00",
+                "starttime": "11:40:00",
+                "endtime":      "11:55:00",
                 "minutestoconsideronline": 5,
                 "atleastthispartofgrouptostartritual": 0.7,
                 "waitingforothers": "... aspettiamo che arrivi il resto del gruppo",
@@ -19,8 +19,8 @@
                 "discomfortsound": "sounds/discomfortII.mp3"
         },
         "couplesmeet": {
-                "starttime": "11:35:00",
-                "endtime":      "12:35:00"
+                "starttime": "11:55:00",
+                "endtime":      "12:55:00"
         },
         "assembly": {
                 "eachdaystarttime": "00:00:00",
